@@ -143,6 +143,9 @@ set novisualbell
 set t_vb=
 "set tm=500 "键序列的超时等待时间
 
+" After exit vim, retain the screen
+set t_te=
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -508,6 +511,11 @@ map <silent> <F11> :TlistToggle<cr>
 nnoremap <leader>tl :Tlist<CR>
 
 """"""""""""""""""""""""""""""
+" for NERDTree
+""""""""""""""""""""""""""""""
+map <silent> <F12> :NERDTreeToggle<cr>
+
+""""""""""""""""""""""""""""""
 " for neocomplcache
 """"""""""""""""""""""""""""""
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -729,3 +737,4 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
