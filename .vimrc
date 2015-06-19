@@ -43,6 +43,7 @@ Plugin 'Emmet.vim'
 Plugin 'taglist.vim'
 Plugin 'bufexplorer.zip'
 Plugin 'winmanager'
+Plugin 'VimIM'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -506,14 +507,16 @@ nmap <C-@>i :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_Use_Right_Window=1 
-" for use of taglist, press [F11] to toggle taglist
-map <silent> <F11> :TlistToggle<cr>
+"let tlist_php_settings = 'php;c:class;f:function;d:constant;v:variable'
+let tlist_php_settings = 'php;c:class;f:function;d:constant'
+" for use of taglist, press [F12] to toggle taglist
+map <silent> <F12> :TlistToggle<cr>
 nnoremap <leader>tl :Tlist<CR>
 
 """"""""""""""""""""""""""""""
 " for NERDTree
 """"""""""""""""""""""""""""""
-map <silent> <F12> :NERDTreeToggle<cr>
+map <silent> <F11> :NERDTreeToggle<cr>
 
 """"""""""""""""""""""""""""""
 " for neocomplcache
@@ -660,6 +663,18 @@ let g:vdebug_options = {
 " debugger setting
 """"""""""""""""""""""""""""""
 "let g:debuggerPort = 9090
+
+""""""""""""""""""""""""""""""
+" vimim setting
+""""""""""""""""""""""""""""""
+let g:Vimim_cloud = 'baidu'
+"let g:Vimim_mode = 'dynamic'
+"let g:Vimim_mycloud = 0
+"let g:Vimim_punctuation = 2
+"let g:Vimim_shuangpin = 0
+"let g:vimim_plugin = 'C:/var/mobile/vim/vimfiles/plugin'
+"let g:vimim_custom_laststatus=1
+let g:Vimim_toggle = 'pinyin,baidu'
 
 """"""""""""""""""""""""""""""
 " extra settings
