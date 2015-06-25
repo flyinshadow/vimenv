@@ -37,6 +37,7 @@ Plugin 'joonty/vdebug.git'
 
 Plugin 'PDV--phpDocumentor-for-Vim'
 Plugin 'The-NERD-tree'
+Plugin 'The-NERD-Commenter'
 Plugin 'neocomplcache'
 "Plugin 'ZenCoding.vim' has been renamed to Emmet.vim.
 Plugin 'Emmet.vim'
@@ -44,6 +45,10 @@ Plugin 'taglist.vim'
 Plugin 'bufexplorer.zip'
 Plugin 'winmanager'
 Plugin 'VimIM'
+Plugin 'Syntastic'
+
+Plugin 'Solarized'
+Plugin 'molokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -97,7 +102,8 @@ set ffs=unix,dos,mac
 set so=7
 
 " Turn on the WiLd menu
-set wildmenu
+"set wildmenu
+set wildmode=list:longest
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -153,8 +159,20 @@ set t_te=
 " Enable syntax highlighting
 syntax enable
 
-colorscheme desert
 set background=dark
+"colorscheme desert
+colorscheme solarized
+"colorscheme molokai
+function! ToggleBackground()
+	if (w:solarized_style=="dark")
+		let w:solarized_style="light"
+		colorscheme solarized
+	else
+		let w:solarized_style="dark"
+		colorscheme solarized
+	endif
+endfunction
+command! Togbg call ToggleBackground()
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -401,6 +419,7 @@ set showcmd         " display incomplete commands
 "set softtabstop    " 如果设置，则不用改变 tabstop，但让编辑时输入 tab 看起来是指定的宽度，输入 tab 时会插入的 tab 和空格的混合，比如 tabstop=4，softtabstop=10，那么插入 tab 时会将光标移动 10 个字符，可能会是两个 tab 加两个空格，这对 backspace 也有效。
 "set foldenable
 "set foldmethod=marker  " 设置折叠方式，marker表示使用标志标识折叠，默认标识是：foldmarker={{{,}}}
+"autocmd FileType php setl fdm=syntax | setl fen
 
 set pastetoggle=<F12>
 
@@ -517,6 +536,12 @@ nnoremap <leader>tl :Tlist<CR>
 " for NERDTree
 """"""""""""""""""""""""""""""
 map <silent> <F11> :NERDTreeToggle<cr>
+
+""""""""""""""""""""""""""""""
+" for NERDCommenter
+""""""""""""""""""""""""""""""
+",cu 取消注释
+",cc 使用注释
 
 """"""""""""""""""""""""""""""
 " for neocomplcache
@@ -643,7 +668,8 @@ nmap wm :WMToggle<cr>
 " vdebug setting
 """"""""""""""""""""""""""""""
 let g:vdebug_options = {
-\	'port':9090
+\ 'port':9090,
+\ 'watch_window_style':'compact',
 \}
 "<F5>: start/run (to next breakpoint/end of script)
 "<F2>: step over
@@ -675,6 +701,22 @@ let g:Vimim_cloud = 'baidu'
 "let g:vimim_plugin = 'C:/var/mobile/vim/vimfiles/plugin'
 "let g:vimim_custom_laststatus=1
 let g:Vimim_toggle = 'pinyin,baidu'
+
+""""""""""""""""""""""""""""""
+" Syntastic setting
+""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_php_checkers = ["php", "phpcs", "phpmd"]
+let g:syntastic_php_checkers = ["php", "phplint"]
+"phpcs，tab 4个空格，编码参考使用CodeIgniter风格
+let g:syntastic_phpcs_conf = "--tab-width=4 --standard=CodeIgniter"
+let makeprg = "php -l -d error_reporting=E_ALL -d display_errors=1" 
 
 """"""""""""""""""""""""""""""
 " extra settings
