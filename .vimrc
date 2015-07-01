@@ -27,11 +27,14 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'bling/vim-airline'
 Plugin 'mbbill/undotree'
+Plugin 'elzr/vim-json'
+"Plugin 'arnaud-lb/vim-php-namespace'
+"Plugin 'beyondwords/vim-twig'
 "Plugin 'bling/vim-bufferline'
 "Plugin 'jistr/vim-nerdtree-tabs'
-"Plugin 'tacahiroy/ctrlp-funky'
 
 Plugin 'taglist.vim'
 Plugin 'VimIM'
@@ -93,7 +96,7 @@ set ffs=unix,dos,mac
 set so=5
 
 " Turn on the WiLd menu
-"set wildmenu
+set wildmenu
 set wildmode=list:longest
 set completeopt=longest,menu,preview
 
@@ -113,10 +116,14 @@ set hid
 set backspace=eol,start,indent
 "set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-"set ignorecase
+" Set ignorecase
+set ic
 nnoremap <leader>ic :set ic<cr>
 nnoremap <leader>ni :set noic<cr>
+
+" Split window pos
+set splitright
+set splitbelow
 
 " When searching try to be smart about cases
 set smartcase
@@ -155,6 +162,9 @@ syntax enable
 
 set background=dark
 let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
 colorscheme solarized
 "colorscheme desert
 
@@ -223,7 +233,7 @@ map j gj
 map k gk
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+map <silent> <leader>/ :noh<cr>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -279,22 +289,11 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-"map 0 ^
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
 
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" alt not work in securecrt and i still not got the idea
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-"
-"if has("mac") || has("macunix")
-"  nmap <D-j> <M-j>
-"  nmap <D-k> <M-k>
-"  vmap <D-j> <M-j>
-"  vmap <D-k> <M-k>
-"endif
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
@@ -305,58 +304,37 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimgrep searching and cope displaying
-" it seems not very useful for me!!!
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   " When you press gv you vimgrep after the selected text
-"   vnoremap <silent> gv :call VisualSelection('gv')<CR>
-"   
-"   " Open vimgrep and put the cursor in the right position
-"   map <leader>g :vimgrep // **/*.php<left><left><left><left><left><left><left><left><left><left>
-"   
-"   " Vimgreps in the current file
-"   map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-"   
-"   " When you press <leader>r you can search and replace the selected text
-"   vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-"   
-"   " Do :help cope if you are unsure what cope is. It's super useful!
-"   "
-"   " When you search with vimgrep, display your results in cope by doing:
-"   "   <leader>cc
-"   "
-"   " To go to the next search result do:
-"   "   <leader>n
-"   "
-"   " To go to the previous search results do:
-"   "   <leader>p
-"   "
-"   map <leader>cc :botright cope<cr>
-"   map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>Pgg
-"   map <leader>n :cn<cr>
-"   map <leader>p :cp<cr>
+"UPPERCASE and lowercase conversion
+nnoremap g^ gUiW
+nnoremap gv guiW
 
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
 
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
 
+" Some helpers to edit mode
+" http://vimcasts.org/e/14
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
 
+" Adjust viewports to the same size
+map <Leader>= <C-w>=
+
+" Map <Leader>ff to display all lines with keyword under cursor
+" and ask which one to jump to
+nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
 " Quickly open a buffer for scripbble
 map <leader>q :e ~/buffer<cr>
 
@@ -364,6 +342,13 @@ map <leader>q :e ~/buffer<cr>
 map <leader>pp :setlocal paste!<cr>
 set pastetoggle=<F12>
 
+if has('clipboard')
+	if has('unnamedplus')  " When possible use + register for copy-paste
+		set clipboard=unnamed,unnamedplus
+	else         " On mac and Windows, use * register for copy-paste
+		set clipboard=unnamed
+	endif
+endif
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -512,13 +497,25 @@ nnoremap <leader>tl :TlistToggle<CR>
 """"""""""""""""""""""""""""""
 map <silent> <F11> :NERDTreeToggle<cr>
 nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=0
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+
+" Open NERDTree by default
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+" http://stackoverflow.com/questions/2066590/automatically-quit-vim-if-nerdtree-is-last-and-only-buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 """"""""""""""""""""""""""""""
 " for NERDCommenter
 """"""""""""""""""""""""""""""
 ",cu 取消注释
 ",cc 使用注释
-
 
 """""""""""""""""""""""""""""""
 " neocomplete
@@ -716,6 +713,22 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:ctrlp_working_path_mode = 'w'
 let g:ctrlp_regexp = 1
 let g:ctrlp_by_filename = 1
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\.git$\|\.hg$\|\.svn$',
+	\ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+nnoremap <Leader>mr :CtrlPMRU<Cr>
+
+"""""""""""""""""""""""""""""
+" ctrlp-funky
+"""""""""""""""""""""""""""""
+if isdirectory(expand("~/.vim/bundle/ctrlp-funky/"))
+	" CtrlP extensions
+	let g:ctrlp_extensions = ['funky']
+
+	"funky
+	nnoremap <Leader>fu :CtrlPFunky<Cr>
+endif
 
 """"""""""""""""""""""""""""""
 " vim-airline setting
@@ -751,21 +764,29 @@ let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 
 """""""""""""""""""""""""""""""
-" extra settings
+" undotree settings
 """"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Turn persistent undo on if possible
-"    means that you can undo even when you close a buffer/VIM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"if has("persistent_undo")
-"	"mkdir只能用绝对路径
-"	let s:undodir= $HOME.'/.vim/undodir'
-"	if !isdirectory(s:undodir)
-"		call mkdir(s:undodir)
-"	endif
-"    set undodir=s:undodir
-"    set undofile
-"endif
+nnoremap <Leader>u :UndotreeToggle<CR>
+" If undotree is opened, it is likely one wants to interact with it.
+let g:undotree_SetFocusWhenToggle=1
+
+"""""""""""""""""""""""""""""""
+" vim-fugitiv settings
+""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+"nnoremap <silent> <leader>gc :Gcommit<CR>
+"nnoremap <silent> <leader>gb :Gblame<CR>
+"nnoremap <silent> <leader>gp :Git push<CR>
+"nnoremap <silent> <leader>gr :Gread<CR>
+"nnoremap <silent> <leader>gw :Gwrite<CR>
+"nnoremap <silent> <leader>ge :Gedit<CR>
+
+"""""""""""""""""""""""""""""
+" vim-json
+"""""""""""""""""""""""""""""
+let g:vim_json_syntax_conceal=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -826,4 +847,27 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+" Shell command {
+function! s:RunShellCommand(cmdline)
+	botright new
+
+	setlocal buftype=nofile
+	setlocal bufhidden=delete
+	setlocal nobuflisted
+	setlocal noswapfile
+	setlocal nowrap
+	setlocal filetype=shell
+	setlocal syntax=shell
+
+	call setline(1, a:cmdline)
+	call setline(2, substitute(a:cmdline, '.', '=', 'g'))
+	execute 'silent $read !' . escape(a:cmdline, '%#')
+	setlocal nomodifiable
+	1
+endfunction
+
+command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
+" e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
+" }
 
