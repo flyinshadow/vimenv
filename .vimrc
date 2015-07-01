@@ -18,6 +18,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
+Plugin 'oplatek/Conque-Shell'
 Plugin 'tpope/vim-fugitive'
 Plugin 'joonty/vdebug.git'
 Plugin 'Shougo/neocomplete.vim'
@@ -64,6 +65,9 @@ filetype plugin indent on    " required
 " => General
 " many awesome config from <http://amix.dk/vim/vimrc.html>
 """"""""""""""""""""""""""""""
+" Enable aliases in vim non-interactive mode :!<cmd>
+let $BASH_ENV = "~/.bash_aliases"
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -439,7 +443,7 @@ autocmd BufNewFile * normal G
 "  inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 "  nnoremap <C-P> :call PhpDocSingle()<CR>
 "  vnoremap <C-P> :call PhpDocRange()<CR>
-
+nnoremap <leader>pd :call PhpDocSingle()<CR>
 
 """"""""""""""""""""""""""""""
 " for ctag & cscope
