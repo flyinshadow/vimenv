@@ -32,7 +32,6 @@ Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'bling/vim-airline'
 Plugin 'mbbill/undotree'
 Plugin 'elzr/vim-json'
-"Plugin 'arnaud-lb/vim-php-namespace'
 "Plugin 'beyondwords/vim-twig'
 "Plugin 'bling/vim-bufferline'
 "Plugin 'jistr/vim-nerdtree-tabs'
@@ -41,7 +40,9 @@ Plugin 'taglist.vim'
 Plugin 'VimIM'
 
 " PHP {
-	Plugin 'PDV--phpDocumentor-for-Vim'
+	Plugin 'mikehaertl/pdv-standalone'
+	"Plugin 'tobyS/pdv'
+	"Plugin 'doxygentoolkit.vim'
 	"Plugin 'arnaud-lb/vim-php-namespace'
 " }
 
@@ -169,8 +170,8 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
-colorscheme solarized
-"colorscheme desert
+"colorscheme solarized
+colorscheme desert
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -316,8 +317,8 @@ nnoremap gv guiW
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " Visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
+"vnoremap < <gv
+"vnoremap > >gv
 
 " For when you forget to sudo.. Really Write the file.
 cmap w!! w !sudo tee % >/dev/null
@@ -443,6 +444,8 @@ autocmd BufNewFile * normal G
 "  inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 "  nnoremap <C-P> :call PhpDocSingle()<CR>
 "  vnoremap <C-P> :call PhpDocRange()<CR>
+let g:pdv_cfg_Author = 'WangJun <wangjun@baijiahulian.com>'
+let g:pdv_cfg_Copyright = '2015 baijiahulian.com'
 nnoremap <leader>pd :call PhpDocSingle()<CR>
 
 """"""""""""""""""""""""""""""
@@ -722,6 +725,7 @@ let g:ctrlp_custom_ignore = {
 	\ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
 nnoremap <Leader>mr :CtrlPMRU<Cr>
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:100'
 
 """""""""""""""""""""""""""""
 " ctrlp-funky
@@ -790,6 +794,7 @@ nnoremap <silent> <leader>gl :Glog<CR>
 """""""""""""""""""""""""""""
 " vim-json
 """""""""""""""""""""""""""""
+nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
 let g:vim_json_syntax_conceal=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
