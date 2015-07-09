@@ -42,7 +42,7 @@ Plugin 'VimIM'
 " PHP {
 	Plugin 'mikehaertl/pdv-standalone'
 	Plugin 'joonty/vim-phpqa.git'
-	"Plugin 'php_localvarcheck.vim'
+	Plugin 'php_localvarcheck.vim'
 	"Plugin 'tobyS/pdv'
 	"Plugin 'doxygentoolkit.vim'
 	"Plugin 'arnaud-lb/vim-php-namespace'
