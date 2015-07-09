@@ -41,6 +41,8 @@ Plugin 'VimIM'
 
 " PHP {
 	Plugin 'mikehaertl/pdv-standalone'
+	Plugin 'joonty/vim-phpqa.git'
+	"Plugin 'php_localvarcheck.vim'
 	"Plugin 'tobyS/pdv'
 	"Plugin 'doxygentoolkit.vim'
 	"Plugin 'arnaud-lb/vim-php-namespace'
@@ -201,7 +203,7 @@ set nobackup
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
-"set expandtab
+set expandtab
 
 " Be smart when using tabs ;)
 " 解决 shiftwidth 和 tabstop 不等时的麻烦：
@@ -449,9 +451,39 @@ let g:pdv_cfg_Copyright = '2015 baijiahulian.com'
 nnoremap <leader>pd :call PhpDocSingle()<CR>
 
 """"""""""""""""""""""""""""""
+" for vim-phpqa
+""""""""""""""""""""""""""""""
+" Configuration
+let g:phpqa_codesniffer_args = "--standard=PSR2"
+" let g:phpqa_messdetector_ruleset = "/path/to/phpmd.xml"
+" let g:phpqa_codecoverage_file = "/path/to/clover.xml"
+
+" Don't run messdetector on save (default = 1)
+let g:phpqa_messdetector_autorun = 0
+" Don't run codesniffer on save (default = 1)
+let g:phpqa_codesniffer_autorun = 0
+" Show code coverage on load (default = 0)
+let g:phpqa_codecoverage_autorun = 0
+
+" You can toggle markers with the following commands (in command mode):
+" <Leader>qa  " Show/hide code sniffer and mess detector violations
+" <Leader>qc  " Show/hide code coverage markers
+" You can also run each command separately on demand:
+" :Php - check for syntax errors
+" :Phpcs - run code sniffer
+" :Phpmd - run mess detector (will ask for a rule XML file if not set)
+" :Phpcc - show code coverage (will ask for a clover XML file if not set)
+
+""""""""""""""""""""""""""""""
+" for php_localvarcheck
+""""""""""""""""""""""""""""""
+"set regexpengine=1
+
+""""""""""""""""""""""""""""""
 " for ctag & cscope
 """""""""""""""""""""""""""""""
 set tags=~/work/www/src/tags
+nnoremap <leader>ta :ta<CR>
 
 if has("cscope") && filereadable("/usr/bin/cscope")
    set csprg=/usr/bin/cscope
