@@ -549,6 +549,7 @@ autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 " http://stackoverflow.com/questions/2066590/automatically-quit-vim-if-nerdtree-is-last-and-only-buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 2 && bufwinnr(g:TagList_title)!=-1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | TlistClose | q | endif
 
 """"""""""""""""""""""""""""""
 " for NERDCommenter
