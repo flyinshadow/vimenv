@@ -43,9 +43,9 @@ Plugin 'VimIM'
 	Plugin 'mikehaertl/pdv-standalone'
 	Plugin 'joonty/vim-phpqa.git'
 	Plugin 'php_localvarcheck.vim'
+	Plugin 'arnaud-lb/vim-php-namespace'
 	"Plugin 'tobyS/pdv'
 	"Plugin 'doxygentoolkit.vim'
-	"Plugin 'arnaud-lb/vim-php-namespace'
 " }
 
 " All of your Plugins must be added before the following line
@@ -676,8 +676,8 @@ let g:miniBufExplModSelTarget=1
 """"""""""""""""""""""""""""""
 " namespace setting
 """"""""""""""""""""""""""""""
-"inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
-"noremap <Leader>u :call PhpInsertUse()<CR>
+noremap <Leader>ns :call PhpInsertUse()<CR>
+noremap <Leader>ne :call PhpExpandClass()<CR>
 
 """"""""""""""""""""""""""""""
 " vdebug setting
