@@ -33,6 +33,7 @@ Plugin 'bling/vim-airline'
 Plugin 'mbbill/undotree'
 Plugin 'elzr/vim-json'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'rking/ag.vim'
 "Plugin 'beyondwords/vim-twig'
 "Plugin 'bling/vim-bufferline'
 "Plugin 'jistr/vim-nerdtree-tabs'
@@ -836,6 +837,12 @@ let g:vim_json_syntax_conceal=0
 " editorconfig-vim
 """""""""""""""""""""""""""""
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+"""""""""""""""""""""""""""""
+" ag.vim
+"""""""""""""""""""""""""""""
+let g:ag_highlight=1
+let g:ag_format="%f:%l:%c:%m"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

@@ -1,2 +1,3 @@
 shopt -s expand_aliases
-alias grepphp='egrep -i -r -n -H --include="*.php" --color'
+alias grephp='egrep -i -r -n -H --include="*.php" --color'
+alias agp='ag --php'
