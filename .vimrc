@@ -32,6 +32,7 @@ Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'bling/vim-airline'
 Plugin 'mbbill/undotree'
 Plugin 'elzr/vim-json'
+Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'beyondwords/vim-twig'
 "Plugin 'bling/vim-bufferline'
 "Plugin 'jistr/vim-nerdtree-tabs'
@@ -829,6 +830,12 @@ nnoremap <silent> <leader>gl :Glog<CR>
 """""""""""""""""""""""""""""
 nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
 let g:vim_json_syntax_conceal=0
+
+
+"""""""""""""""""""""""""""""
+" editorconfig-vim
+"""""""""""""""""""""""""""""
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
