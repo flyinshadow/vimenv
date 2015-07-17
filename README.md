@@ -1,6 +1,10 @@
 ## vimenv
 This is my vim configuration mainly made for php coding environment
 
+- Set up Vundle:
+
+	$ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 ## crontab
 
 	MAILTO=""
