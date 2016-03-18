@@ -1,3 +1,11 @@
 shopt -s expand_aliases
 alias grephp='egrep -i -r -n -H --include="*.php" --color'
 alias agp='ag --php'
+alias f.='find . -name ".*.sw?"'
+#alias mydevdb='mysql -hrdsjrrqafurybyr.mysql.rds.aliyuncs.com -utest_user -pMhxzKhl8888 -P3306 --default-character-set=utf8 cdb'
+alias mydevdb='mysql -h172.21.139.2 -uatlas_rw -patlas_rw -P1234 --default-character-set=utf8 cdb'
+alias cdw='cd ~/work/www/src'
+alias cdh='cd ~/h/im/src'
+alias cdwa='cd ~/work/www/src/api.app.genshuixue.com/apps/api'
+alias cdv='cd ~/work/video/src'
+alias redis='redis-cli -h 1a10cea4e72111e4.m.cnbja.kvstore.aliyuncs.com -a 1a10cea4e72111e4:BaiJiaHuLian0922'

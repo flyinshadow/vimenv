@@ -18,9 +18,9 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
-Plugin 'oplatek/Conque-Shell'
+"Plugin 'oplatek/Conque-Shell'
 Plugin 'tpope/vim-fugitive'
-Plugin 'joonty/vdebug.git'
+"Plugin 'joonty/vdebug.git'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'easymotion/vim-easymotion'
@@ -34,12 +34,12 @@ Plugin 'mbbill/undotree'
 Plugin 'elzr/vim-json'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'rking/ag.vim'
-"Plugin 'beyondwords/vim-twig'
-"Plugin 'bling/vim-bufferline'
-"Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'beyondwords/vim-twig'
+Plugin 'bling/vim-bufferline'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 Plugin 'taglist.vim'
-Plugin 'VimIM'
+"Plugin 'VimIM'
 
 " PHP {
 	Plugin 'mikehaertl/pdv-standalone'
@@ -486,6 +486,8 @@ let g:phpqa_codecoverage_autorun = 0
 """""""""""""""""""""""""""""""
 set tags=~/work/www/src/tags
 nnoremap <leader>ta :ta<CR>
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
 
 if has("cscope") && filereadable("/usr/bin/cscope")
    set csprg=/usr/bin/cscope
@@ -550,8 +552,8 @@ let NERDTreeShowHidden=1
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 " http://stackoverflow.com/questions/2066590/automatically-quit-vim-if-nerdtree-is-last-and-only-buffer
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-autocmd bufenter * if (winnr("$") == 2 && bufwinnr(g:TagList_title)!=-1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | TlistClose | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")) | q | endif
+autocmd bufenter * if (winnr("$") == 2 && bufwinnr(g:TagList_title)!=-1 && exists("b:NERDTree")) | TlistClose | q | endif
 
 """"""""""""""""""""""""""""""
 " for NERDCommenter
@@ -778,7 +780,7 @@ endif
 """"""""""""""""""""""""""""""
 let g:airline_theme="luna"
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
   nmap <leader>1 <Plug>AirlineSelectTab1
   nmap <leader>2 <Plug>AirlineSelectTab2
@@ -798,13 +800,13 @@ if !exists('g:airline_symbols')
 endif
 
 " old vim-powerline symbols
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
+"let g:airline_left_sep = '⮀'
+"let g:airline_left_alt_sep = '⮁'
+"let g:airline_right_sep = '⮂'
+"let g:airline_right_alt_sep = '⮃'
+"let g:airline_symbols.branch = '⭠'
+"let g:airline_symbols.readonly = '⭤'
+"let g:airline_symbols.linenr = '⭡'
 
 """""""""""""""""""""""""""""""
 " undotree settings
