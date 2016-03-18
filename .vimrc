@@ -30,6 +30,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'bling/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mbbill/undotree'
 Plugin 'elzr/vim-json'
 Plugin 'editorconfig/editorconfig-vim'
@@ -484,7 +485,7 @@ let g:phpqa_codecoverage_autorun = 0
 """"""""""""""""""""""""""""""
 " for ctag & cscope
 """""""""""""""""""""""""""""""
-set tags=~/work/www/src/tags
+set tags=~/work/www/tags
 nnoremap <leader>ta :ta<CR>
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
@@ -778,7 +779,7 @@ endif
 """"""""""""""""""""""""""""""
 " vim-airline setting
 """"""""""""""""""""""""""""""
-let g:airline_theme="luna"
+"let g:airline_theme="luna"
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
