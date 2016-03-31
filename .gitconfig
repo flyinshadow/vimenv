@@ -1,0 +1,42 @@
+[alias]
+    st = status
+    s = status --short
+    co = checkout
+    tr = checkout --track
+    br = branch
+    ci = commit -a
+    lg = log --color --graph --decorate
+    last = log -1 HEAD
+    l = log --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --graph
+    la = log --color --graph --decorate --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --abbrev-commit --all
+    lb = log --color --graph --decorate --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --abbrev-commit --all --simplify-by-decoration
+    l0 = log --color --graph --decorate --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --abbrev-commit -U0
+    dl = log --date-order --color --graph --decorate --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --abbrev-commit
+    dla = log --date-order --color --graph --decorate --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --abbrev-commit --all
+    dlb = log --date-order --color --graph --decorate --pretty=format:'%C(auto)%h %s%d %Cgreen(%an)%Creset %Cblue(%ad)%Creset' --date=relative --abbrev-commit --all --simplify-by-decoration
+    dlg = log --date-order --color --graph --decorate
+[user]
+    user = wangjun
+	email = wangjun@baijiahulian.com
+	name = wangjun
+[core]
+	# Use custom `.gitignore`
+	excludesfile = ~/.gitignore
+	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
+	whitespace = space-before-tab,indent-with-non-tab,trailing-space
+[color]
+	# Use colors in Git commands that are capable of colored output when outputting to the terminal
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
